@@ -1,5 +1,6 @@
 package ru.asmelnikov.android.notesapp.screens
 
+import android.app.Application
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Scaffold
@@ -7,15 +8,31 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import ru.asmelnikov.android.notesapp.MainViewModel
+import ru.asmelnikov.android.notesapp.MainViewModelFactory
 import ru.asmelnikov.android.notesapp.navigation.NavRoute
 import ru.asmelnikov.android.notesapp.ui.theme.NotesAppTheme
+import ru.asmelnikov.android.notesapp.utils.TYPE_FIREBASE
+import ru.asmelnikov.android.notesapp.utils.TYPE_ROOM
 
 @Composable
 fun StartScreen(navController: NavHostController) {
+
+    val context = LocalContext.current
+    val mViewModel: MainViewModel =
+        viewModel(
+            factory = MainViewModelFactory(
+                context.applicationContext
+                        as Application
+            )
+        )
+
     Scaffold(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -25,6 +42,7 @@ fun StartScreen(navController: NavHostController) {
             Text(text = "What will we use?")
             Button(
                 onClick = {
+                    mViewModel.initDatabase(TYPE_ROOM)
                     navController.navigate(
                         route =
                         NavRoute.Main.route
@@ -38,6 +56,7 @@ fun StartScreen(navController: NavHostController) {
             }
             Button(
                 onClick = {
+                    mViewModel.initDatabase(TYPE_FIREBASE)
                     navController.navigate(
                         route =
                         NavRoute.Main.route

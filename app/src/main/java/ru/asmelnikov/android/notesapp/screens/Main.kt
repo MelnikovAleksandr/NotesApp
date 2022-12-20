@@ -42,7 +42,6 @@ fun MainScreen(navController: NavHostController) {
             )
         )
 
-    val notes = mViewModel.readTest.observeAsState(listOf()).value
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
@@ -78,39 +77,40 @@ fun MainScreen(navController: NavHostController) {
 //                subTitle = "Subtitle for note 4",
 //                navController = navController
 //            )
-            LazyColumn {
-                items(notes) { note ->
-                    NoteItem(note = note, navController = navController)
-                }
-            }
+//            LazyColumn {
+//                items(notes) { note ->
+//                    NoteItem(note = note, navController = navController)
+//                }
+//            }
+//        }
         }
     }
-}
 
 
-@Composable
-fun NoteItem(note: Note, navController: NavHostController) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp, horizontal = 24.dp)
-            .clickable {
-                navController.navigate(NavRoute.Note.route)
-            },
-        elevation = 6.dp
-    ) {
-        Column(
-            modifier = Modifier.padding(vertical = 8.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+    @Composable
+    fun NoteItem(note: Note, navController: NavHostController) {
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp, horizontal = 24.dp)
+                .clickable {
+                    navController.navigate(NavRoute.Note.route)
+                },
+            elevation = 6.dp
         ) {
-            Text(
-                text = note.title,
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold
-            )
-            Text(text = note.subTitle)
-        }
+            Column(
+                modifier = Modifier.padding(vertical = 8.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = note.title,
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                Text(text = note.subTitle)
+            }
 
+        }
     }
 }
 

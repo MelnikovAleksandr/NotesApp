@@ -22,7 +22,7 @@ import ru.asmelnikov.android.notesapp.utils.TYPE_FIREBASE
 import ru.asmelnikov.android.notesapp.utils.TYPE_ROOM
 
 @Composable
-fun StartScreen(navController: NavHostController) {
+fun StartScreen(navController: NavHostController, viewModel: MainViewModel) {
 
     val context = LocalContext.current
     val mViewModel: MainViewModel =
@@ -75,6 +75,14 @@ fun StartScreen(navController: NavHostController) {
 @Composable
 fun PrevStartScreen() {
     NotesAppTheme {
-        StartScreen(navController = rememberNavController())
+        val context = LocalContext.current
+        val mViewModel: MainViewModel =
+            viewModel(
+                factory = MainViewModelFactory(
+                    context.applicationContext
+                            as Application
+                )
+            )
+        StartScreen(navController = rememberNavController(), viewModel = mViewModel)
     }
 }

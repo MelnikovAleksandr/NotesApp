@@ -28,6 +28,7 @@ import ru.asmelnikov.android.notesapp.MainViewModelFactory
 import ru.asmelnikov.android.notesapp.model.Note
 import ru.asmelnikov.android.notesapp.navigation.NavRoute
 import ru.asmelnikov.android.notesapp.ui.theme.NotesAppTheme
+import ru.asmelnikov.android.notesapp.utils.Constants.Keys.ADD_ICONS
 
 
 @Composable
@@ -43,7 +44,7 @@ fun MainScreen(navController: NavHostController, viewModel: MainViewModel) {
                 }) {
                 Icon(
                     imageVector = Icons.Filled.Add,
-                    contentDescription = "Add Icons",
+                    contentDescription = ADD_ICONS,
                     tint = Color.White
                 )
             }
@@ -65,7 +66,7 @@ fun NoteItem(note: Note, navController: NavHostController) {
             .fillMaxWidth()
             .padding(vertical = 8.dp, horizontal = 24.dp)
             .clickable {
-                navController.navigate(NavRoute.Note.route)
+                navController.navigate(NavRoute.Note.route + "/${note.id}")
             },
         elevation = 6.dp
     ) {

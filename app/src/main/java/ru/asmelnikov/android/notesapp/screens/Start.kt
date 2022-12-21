@@ -18,6 +18,9 @@ import ru.asmelnikov.android.notesapp.MainViewModel
 import ru.asmelnikov.android.notesapp.MainViewModelFactory
 import ru.asmelnikov.android.notesapp.navigation.NavRoute
 import ru.asmelnikov.android.notesapp.ui.theme.NotesAppTheme
+import ru.asmelnikov.android.notesapp.utils.Constants.Keys.FIREBASE_DATABASE
+import ru.asmelnikov.android.notesapp.utils.Constants.Keys.ROOM_DATABASE
+import ru.asmelnikov.android.notesapp.utils.Constants.Keys.WHAT_WILL_WE_USE
 import ru.asmelnikov.android.notesapp.utils.TYPE_FIREBASE
 import ru.asmelnikov.android.notesapp.utils.TYPE_ROOM
 
@@ -39,7 +42,7 @@ fun StartScreen(navController: NavHostController, viewModel: MainViewModel) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text(text = "What will we use?")
+            Text(text = WHAT_WILL_WE_USE)
             Button(
                 onClick = {
                     mViewModel.initDatabase(TYPE_ROOM) {
@@ -50,7 +53,7 @@ fun StartScreen(navController: NavHostController, viewModel: MainViewModel) {
                     .width(200.dp)
                     .padding(vertical = 8.dp)
             ) {
-                Text(text = "Room database")
+                Text(text = ROOM_DATABASE)
             }
             Button(
                 onClick = {
@@ -65,7 +68,7 @@ fun StartScreen(navController: NavHostController, viewModel: MainViewModel) {
                     .width(200.dp)
                     .padding(vertical = 8.dp)
             ) {
-                Text(text = "Firebase database")
+                Text(text = FIREBASE_DATABASE)
             }
         }
     }

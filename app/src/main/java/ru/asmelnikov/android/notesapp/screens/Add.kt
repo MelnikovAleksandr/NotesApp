@@ -25,6 +25,10 @@ import ru.asmelnikov.android.notesapp.MainViewModelFactory
 import ru.asmelnikov.android.notesapp.model.Note
 import ru.asmelnikov.android.notesapp.navigation.NavRoute
 import ru.asmelnikov.android.notesapp.ui.theme.NotesAppTheme
+import ru.asmelnikov.android.notesapp.utils.Constants.Keys.ADD_NEW_NOTE
+import ru.asmelnikov.android.notesapp.utils.Constants.Keys.ADD_NOTE
+import ru.asmelnikov.android.notesapp.utils.Constants.Keys.NOTE_SUBTITLE
+import ru.asmelnikov.android.notesapp.utils.Constants.Keys.NOTE_TITLE
 
 
 @Composable
@@ -48,7 +52,7 @@ fun AddScreen(navController: NavHostController, viewModel: MainViewModel) {
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "Add new note",
+                text = ADD_NEW_NOTE,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(vertical = 8.dp)
@@ -60,7 +64,7 @@ fun AddScreen(navController: NavHostController, viewModel: MainViewModel) {
                     title = it
                     isButtonEnabled = title.isNotEmpty() && subTitle.isNotEmpty()
                 },
-                label = { Text(text = "Note title") },
+                label = { Text(text = NOTE_TITLE) },
                 isError = title.isEmpty()
             )
             OutlinedTextField(
@@ -69,7 +73,7 @@ fun AddScreen(navController: NavHostController, viewModel: MainViewModel) {
                     subTitle = it
                     isButtonEnabled = title.isNotEmpty() && subTitle.isNotEmpty()
                 },
-                label = { Text(text = "Note subTitle") },
+                label = { Text(text = NOTE_SUBTITLE) },
                 isError = subTitle.isEmpty()
             )
             Button(
@@ -80,7 +84,7 @@ fun AddScreen(navController: NavHostController, viewModel: MainViewModel) {
                         navController.navigate(NavRoute.Main.route)
                     }
                 }) {
-                Text(text = "Add note")
+                Text(text = ADD_NOTE)
             }
         }
     }

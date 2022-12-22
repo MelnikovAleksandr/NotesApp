@@ -33,6 +33,9 @@ import ru.asmelnikov.android.notesapp.utils.Constants.Keys.SUBTITLE
 import ru.asmelnikov.android.notesapp.utils.Constants.Keys.TITLE
 import ru.asmelnikov.android.notesapp.utils.Constants.Keys.UPDATE
 import ru.asmelnikov.android.notesapp.utils.Constants.Keys.UPDATE_NOTE
+import ru.asmelnikov.android.notesapp.utils.DB_TYPE
+import ru.asmelnikov.android.notesapp.utils.TYPE_FIREBASE
+import ru.asmelnikov.android.notesapp.utils.TYPE_ROOM
 
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -40,7 +43,15 @@ import ru.asmelnikov.android.notesapp.utils.Constants.Keys.UPDATE_NOTE
 fun NoteScreen(navController: NavHostController, viewModel: MainViewModel, noteId: String?) {
 
     val notes = viewModel.readAllNotes().observeAsState(listOf()).value
-    val note = notes.firstOrNull { it.id == noteId?.toInt() } ?: Note(title = NONE, subTitle = NONE)
+    val note = when (DB_TYPE) {
+        TYPE_ROOM -> {
+            notes.firstOrNull { it.id == noteId?.toInt() } ?: Note()
+        }
+        TYPE_FIREBASE -> {
+            notes.firstOrNull { it.firebaseId == noteId } ?: Note()
+        }
+        else -> Note()
+    }
     val bottomSheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
     val coroutineScope = rememberCoroutineScope()
     var title by remember { mutableStateOf(EMPTY) }
@@ -80,7 +91,12 @@ fun NoteScreen(navController: NavHostController, viewModel: MainViewModel, noteI
                         onClick = {
                             viewModel.updateNote(
                                 note =
-                                Note(id = note.id, title = title, subTitle = subtitle)
+                                Note(
+                                    id = note.id,
+                                    title = title,
+                                    subTitle = subtitle,
+                                    firebaseId = note.firebaseId
+                                )
                             ) {
                                 navController.navigate(NavRoute.Main.route)
                             }

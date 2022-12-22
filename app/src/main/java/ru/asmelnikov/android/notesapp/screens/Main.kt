@@ -29,6 +29,10 @@ import ru.asmelnikov.android.notesapp.model.Note
 import ru.asmelnikov.android.notesapp.navigation.NavRoute
 import ru.asmelnikov.android.notesapp.ui.theme.NotesAppTheme
 import ru.asmelnikov.android.notesapp.utils.Constants.Keys.ADD_ICONS
+import ru.asmelnikov.android.notesapp.utils.Constants.Keys.EMPTY
+import ru.asmelnikov.android.notesapp.utils.DB_TYPE
+import ru.asmelnikov.android.notesapp.utils.TYPE_FIREBASE
+import ru.asmelnikov.android.notesapp.utils.TYPE_ROOM
 
 
 @Composable
@@ -61,12 +65,19 @@ fun MainScreen(navController: NavHostController, viewModel: MainViewModel) {
 
 @Composable
 fun NoteItem(note: Note, navController: NavHostController) {
+
+    val noteId = when (DB_TYPE) {
+        TYPE_FIREBASE -> note.firebaseId
+        TYPE_ROOM -> note.id
+        else -> EMPTY
+    }
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp, horizontal = 24.dp)
             .clickable {
-                navController.navigate(NavRoute.Note.route + "/${note.id}")
+                navController.navigate(NavRoute.Note.route + "/${noteId}")
             },
         elevation = 6.dp
     ) {

@@ -5,6 +5,7 @@ import ru.asmelnikov.android.notesapp.database.DatabaseRepository
 const val TYPE_DATABASE = "type_database"
 const val TYPE_ROOM = "type_room"
 const val TYPE_FIREBASE = "type_firebase"
+const val FIREBASE_ID = "firebaseId"
 
 lateinit var REPOSITORY: DatabaseRepository
 lateinit var LOGIN: String
@@ -18,8 +19,8 @@ object Constants {
         const val NOTE_TITLE = "Note title"
         const val NOTE_SUBTITLE = "Note subTitle"
         const val ADD_NOTE = "Add note"
-        const val TITLE = "Title"
-        const val SUBTITLE = "SubTitle"
+        const val TITLE = "title"
+        const val SUBTITLE = "subTitle"
         const val ADD_ICONS = "Add Icons"
         const val WHAT_WILL_WE_USE = "What will we use?"
         const val ROOM_DATABASE = "Room database"

@@ -15,7 +15,7 @@ import ru.asmelnikov.android.notesapp.utils.TYPE_ROOM
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
-    val context = application
+    private val context = application
 
     fun initDatabase(type: String, onSuccess: () -> Unit) {
         Log.d("checkData", "MainViewModel initDataBase with type: $type")
@@ -68,6 +68,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun readAllNotes() = REPOSITORY.readAll
 }
 
+@Suppress("UNCHECKED_CAST")
 class MainViewModelFactory(
     private val application: Application
 ) : ViewModelProvider.Factory {

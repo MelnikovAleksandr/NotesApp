@@ -1,3 +1,5 @@
+@file:Suppress("OPT_IN_IS_NOT_ENABLED")
+
 package ru.asmelnikov.android.notesapp.screens
 
 import android.app.Application
@@ -70,7 +72,7 @@ fun StartScreen(navController: NavHostController, viewModel: MainViewModel) {
                             LOGIN = login
                             PASSWORD = password
                             viewModel.initDatabase(TYPE_FIREBASE) {
-                                Log.d("checkData", "Auth success")
+                                navController.navigate(NavRoute.Main.route)
                             }
                         },
                         enabled = login.isNotEmpty() && password.isNotEmpty()

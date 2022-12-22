@@ -1,3 +1,5 @@
+@file:Suppress("OPT_IN_IS_NOT_ENABLED")
+
 package ru.asmelnikov.android.notesapp.screens
 
 import android.app.Application

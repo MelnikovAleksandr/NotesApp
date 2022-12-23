@@ -3,12 +3,15 @@ package ru.asmelnikov.android.notesapp
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
+import androidx.lifecycle.viewmodel.CreationExtras
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.asmelnikov.android.notesapp.database.firebase.AppFirebaseRepository
 import ru.asmelnikov.android.notesapp.database.room.AppRoomDatabase
 import ru.asmelnikov.android.notesapp.database.room.repository.RoomRepository
 import ru.asmelnikov.android.notesapp.model.Note
+import ru.asmelnikov.android.notesapp.utils.Constants.Keys.EMPTY
+import ru.asmelnikov.android.notesapp.utils.DB_TYPE
 import ru.asmelnikov.android.notesapp.utils.REPOSITORY
 import ru.asmelnikov.android.notesapp.utils.TYPE_FIREBASE
 import ru.asmelnikov.android.notesapp.utils.TYPE_ROOM
@@ -61,6 +64,20 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 viewModelScope.launch(Dispatchers.Main) {
                     onSuccess()
                 }
+            }
+        }
+    }
+
+    fun singOut(onSuccess: () -> Unit) {
+        when (DB_TYPE.value) {
+            TYPE_FIREBASE,
+            TYPE_ROOM -> {
+                REPOSITORY.singOut()
+                DB_TYPE.value = EMPTY
+                onSuccess()
+            }
+            else -> {
+                Log.d("checkData", "singOut: ELSE: ${DB_TYPE.value}")
             }
         }
     }
